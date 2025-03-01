@@ -8,7 +8,7 @@ all: $(COMPOSE_FILE)
 getssl:
 	@mkdir -p $(SSL_DIR)
 	@openssl req -x509 -newkey rsa:4096 -keyout $(SSL_DIR)/server.key -out $(SSL_DIR)/server.crt -days 365 -nodes \
-	-subj "/C=KR/ST=Seoul/L=Gaepo-dong/O=42Seoul/OU=cadet/CN=sangshin/"
+	-subj "/C=KR/ST=Seoul/L=Gaepo-dong/O=42Seoul/OU=cadet/CN=sangshin/" -quiet
 
 
 clean:
@@ -16,7 +16,7 @@ clean:
 
 fclean: clean
 	rm -rf ./srcs/database
-	rm -rf ./srcs/wordpress
+	rm -rf ./srcs/web
 	rm -rf $(SSL_DIR)
 	docker system prune --volumes --all --force
 	docker network prune --force

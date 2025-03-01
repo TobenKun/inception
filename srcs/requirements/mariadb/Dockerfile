@@ -13,9 +13,6 @@ RUN chmod +x script.sh
 RUN mkdir -p /run/mysqld && \
     chown -R mysql:mysql /run/mysqld
 
-# 데이터베이스 초기화
-#RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql
-
 # 포트 오픈
 EXPOSE 3306
 

@@ -8,7 +8,6 @@ services:
       - wordpress
       - mariadb
     ports:
-      - "80:80"
       - "443:443"
     volumes:
       - ./web:/var/www/html
