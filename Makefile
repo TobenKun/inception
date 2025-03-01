@@ -1,18 +1,18 @@
 COMPOSE_FILE = ./srcs/docker-compose.yml
 SSL_DIR = ./srcs/requirements/nginx/ssl
 
+all: $(COMPOSE_FILE)
+	@if [ ! -d "$(SSL_DIR)" ]; then $(MAKE) getssl; fi
+	docker compose -f $(COMPOSE_FILE) up --build &
+
 getssl:
-	mkdir ./srcs/requirements/nginx/ssl
-	openssl req -x509 -newkey rsa:4096 -keyout server.key -out server.crt -days 365 -nodes \
+	@mkdir -p $(SSL_DIR)
+	@openssl req -x509 -newkey rsa:4096 -keyout $(SSL_DIR)/server.key -out $(SSL_DIR)/server.crt -days 365 -nodes \
 	-subj "/C=KR/ST=Seoul/L=Gaepo-dong/O=42Seoul/OU=cadet/CN=sangshin/"
 
 
-all: $(COMPOSE_FILE) $(SSL_DIR)
-	docker compose -f $(COMPOSE_FILE) up --build
-
 clean:
 	docker compose -f $(COMPOSE_FILE) down -v --rmi all --remove-orphans
-
 
 fclean: clean
 	rm -rf ./srcs/database
@@ -22,4 +22,5 @@ fclean: clean
 	docker network prune --force
 	docker volume prune --force
 
-.PHONY: all clean fclean
+.PHONY: all clean fclean getssl
+
