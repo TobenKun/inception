@@ -15,8 +15,7 @@ clean:
 	docker compose -f $(COMPOSE_FILE) down -v --rmi all --remove-orphans
 
 fclean: clean
-	rm -rf ./srcs/database
-	rm -rf ./srcs/web
+	rm -rf ./data
 	rm -rf $(SSL_DIR)
 	docker system prune --volumes --all --force
 	docker network prune --force
