@@ -15,11 +15,11 @@ clean:
 	docker compose -f $(COMPOSE_FILE) down -v --rmi all --remove-orphans
 
 fclean: clean
-	rm -rf ./data
+	rm -rf ./data/mariadb/*
+	rm -rf ./data/wordpress/*
 	rm -rf $(SSL_DIR)
 	docker system prune --volumes --all --force
 	docker network prune --force
 	docker volume prune --force
 
 .PHONY: all clean fclean getssl
-
